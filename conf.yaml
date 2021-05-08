@@ -1,0 +1,73 @@
+data:
+  data_dir: 'assets/midis/'
+  max_files: 10
+  max_len: 512
+  instruments: ['piano', 'brass', 'drums']
+
+
+model:
+  lr: 0.0001
+  max_epochs: 1
+  
+  dropout: &dropout 0.1
+  d_model: &d_model 512
+  d_inner: &d_inner 1024
+  n_layers: &n_layers 8
+  n_heads: &n_heads 8
+  activation: &activation gelu
+  final_norm: &final_norm False
+  
+  attributes: &attributes ['ttype', 'position', 'tempo', 'chord', 'instrument', 'pitch', 'duration', 'velocity']
+  n_tokens: &n_tokens
+    ttype: 2
+    position: 49
+    tempo: 21
+    chord: 133
+    instrument: 17
+    pitch: 128
+    duration: 48
+    velocity: 30
+      
+  emb_dims: &emb_dims
+    ttype: 8
+    position: 64
+    tempo: 48
+    chord: 96
+    instrument: 32
+    pitch: 96
+    duration: 64
+    velocity: 64
+  
+  embedding:
+    d_model: *d_model
+    dropout: *dropout
+    attributes: *attributes
+    n_tokens: *n_tokens
+    max_len: 100000
+    emb_dims: *emb_dims
+      
+  encoder:
+    d_model: *d_model
+    d_inner: *d_inner
+    n_heads: *n_heads
+    self_attention_type: linear
+    is_decoder: False
+    dropout: *dropout
+    activation: *activation
+    n_layers: *n_layers
+    final_norm: *final_norm
+    
+  head:
+    d_model: *d_model
+    attributes: *attributes
+    n_tokens: *n_tokens
+    emb_dims: *emb_dims
+    connections: 
+      ttype: []
+      position: [ttype]
+      tempo: [ttype]
+      chord: [ttype]
+      instrument: [ttype]
+      pitch: [ttype, instrument]
+      duration: [ttype, instrument, pitch]
+      velocity: [ttype, instrument, pitch, duration]
