@@ -1,6 +1,4 @@
-logs/
-__pycache__/
-src/__pycache__/
-src/modules/__pycache__/
-.ipynb_checkpoints/
-assets/
+**/logs/
+**/__pycache__/
+*/.ipynb_checkpoints/
+*/assets/

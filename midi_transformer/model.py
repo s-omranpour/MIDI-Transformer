@@ -2,13 +2,11 @@ import torch
 from torch import nn
 import pytorch_lightning as pl
 import numpy as np
-import pickle
-import itertools
-from tqdm.notebook import tqdm
-from fast_transformers.masking import TriangularCausalMask, LengthMask
-
-from src.modules import CPEmbedding, CPHeadLayer, Encoder, utils
+from tqdm import tqdm
 from deepnote.utils import clean_cp
+
+from midi_transformer.modules import CPEmbedding, CPHeadLayer, Encoder, utils
+
 
 
 class CPTransformer(pl.LightningModule):
@@ -75,13 +73,15 @@ class CPTransformer(pl.LightningModule):
     def validation_step(self, batch, batch_idx):
         self.step(batch, mode='val')
 
+    @torch.no_grad()
     def generate(self, prompt=None, max_len=1024, temperatures=None):
         self.eval()
-        with torch.no_grad():
-            res = [[0]*8] if prompt is None else prompt
-            for _ in tqdm(range(max_len)):
-                inp = torch.tensor(res).long().to(self.device).unsqueeze(0)
-                h = self.encoder(self.emb(inp))
-                next_word = self.head.infer(h, temperatures)
-                res += [next_word]
+        res = [[0]*8] if prompt is None else prompt
+        for _ in tqdm(range(max_len)):
+            inp = torch.tensor(res).long().to(self.device).unsqueeze(0)
+            h = self.encoder(self.emb(inp))
+            next_word = self.head.infer(h, temperatures)
+            res += [next_word]
+            if next_word[0] == 2:
+                break
         return clean_cp(np.array(res))

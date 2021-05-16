@@ -44,7 +44,7 @@ class CPEmbedding(nn.Module):
 
     def forward(self, x):
         embs = []
-        for i, k in enumerate(self.emb_layers.keys()):
+        for i, k in enumerate(self.emb_layers):
             embs += [self.emb_layers[k](x[..., i])]
         embs = torch.cat(embs, dim=-1)
         if self.proj is not None:

@@ -1,4 +1,4 @@
 torch>=1.6
 pytorch-fast-transformers>=0.3.0
 pytorch_lightning>=1.1.0
-deepnote>=0.0.3
+deepnote>=0.0.12

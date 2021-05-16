@@ -32,7 +32,7 @@ def load_midi(file, instruments=None):
     for inst in instruments:
         if inst in tracks:
             res[inst] = tracks[inst]
-    return MusicRepr.merge_tracks(res).to_cp()
+    return np.concatenate([MusicRepr.merge_tracks(res).to_cp(), np.array([[2] + [0]*7])], axis=0)
 
 
 class LMDataset(Dataset):

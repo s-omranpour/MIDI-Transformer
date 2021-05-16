@@ -4,7 +4,7 @@ from torch import nn
 import math
 from collections import OrderedDict
 
-from src.modules import utils
+from .utils import simple_sample
 
 
 class CPHeadLayer(nn.Module):
@@ -34,7 +34,7 @@ class CPHeadLayer(nn.Module):
         def sample(h, key):
             t = 1. if temperatures is None else temperatures[key]
             logits = self.heads[key](h)[0]
-            return utils.simple_sample(logits / t)[..., 0].unsqueeze(0)
+            return simple_sample(logits / t)[..., 0].unsqueeze(0)
 
         y_type = sample(h, 'ttype')
         h_cat = torch.cat([h, self.type_emb(y_type)], dim=-1)
