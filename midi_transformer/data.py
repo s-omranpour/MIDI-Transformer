@@ -2,6 +2,7 @@ import os
 import numpy as np
 from tqdm.notebook import tqdm
 from deepnote import MusicRepr
+from joblib import delayed, Parallel
 
 import torch
 from torch.utils.data import random_split, Dataset, DataLoader
@@ -45,7 +46,7 @@ class LMDataset(Dataset):
         self.samples = list(
             filter(
                 lambda x: x is not None, 
-                [load_midi(data_dir + file, instruments) for file in tqdm(files)]
+                Parallel(n_jobs=12)(delayed(load_midi)(data_dir + file, instruments) for file in tqdm(files))
             )
         )
         if instruments is None:

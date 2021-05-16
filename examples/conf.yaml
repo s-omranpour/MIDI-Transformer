@@ -1,8 +1,8 @@
 data:
-  data_dir: 'assets/midis/'
-  max_files: 10
+  data_dir: '/home/soroosh/Desktop/datasets/music/lmd_processed/'
+  max_files: 2000
   max_len: 512
-  instruments: ['piano', 'brass', 'drums']
+  instruments: ['piano', 'bass', 'drums', 'guitar', 'ensemble']
 
 
 model:
