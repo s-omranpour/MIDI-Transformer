@@ -20,23 +20,23 @@ model:
   
   attributes: &attributes ['ttype', 'position', 'tempo', 'chord', 'instrument', 'pitch', 'duration', 'velocity']
   n_tokens: &n_tokens
-    ttype: 2
-    position: 49
+    ttype: 3
+    position: 17
     tempo: 21
     chord: 133
     instrument: 17
     pitch: 128
-    duration: 48
+    duration: 16
     velocity: 30
       
   emb_dims: &emb_dims
     ttype: 8
-    position: 64
+    position: 32
     tempo: 48
-    chord: 96
+    chord: 128
     instrument: 32
-    pitch: 96
-    duration: 64
+    pitch: 128
+    duration: 32
     velocity: 64
   
   embedding:
@@ -63,12 +63,3 @@ model:
     attributes: *attributes
     n_tokens: *n_tokens
     emb_dims: *emb_dims
-    connections: 
-      ttype: []
-      position: [ttype]
-      tempo: [ttype]
-      chord: [ttype]
-      instrument: [ttype]
-      pitch: [ttype, instrument]
-      duration: [ttype, instrument, pitch]
-      velocity: [ttype, instrument, pitch, duration]

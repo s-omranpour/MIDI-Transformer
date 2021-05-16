@@ -51,7 +51,7 @@ class CPTransformer(pl.LightningModule):
             l = self.criterion(logits[k].transpose(1,2), labels[..., i]) * mask[..., i]
             s = torch.sum(mask[..., i])
             l = torch.mean(torch.sum(l) / s if s > 0. else torch.sum(l))
-            losses[k] = 0.*l if torch.isnan(l) else l
+            losses[k] = l
         return losses
 
 
