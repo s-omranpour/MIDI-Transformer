@@ -38,7 +38,7 @@ def load_midi(file, instruments=None):
 
 class LMDataset(Dataset):
     
-    def __init__(self, data_dir, max_files=100, instruments:list=None, max_len=256, masked=False, p_mask=0.2):
+    def __init__(self, data_dir, max_files=100, instruments:list=None, max_len=256, n_jobs=2, masked=False, p_mask=0.2):
         super().__init__()
 
         ## load samples
@@ -46,7 +46,7 @@ class LMDataset(Dataset):
         self.samples = list(
             filter(
                 lambda x: x is not None, 
-                Parallel(n_jobs=12)(delayed(load_midi)(data_dir + file, instruments) for file in tqdm(files))
+                Parallel(n_jobs=n_jobs)(delayed(load_midi)(data_dir + file, instruments) for file in tqdm(files))
             )
         )
         if instruments is None:
