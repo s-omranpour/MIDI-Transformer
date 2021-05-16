@@ -1,8 +1,9 @@
 data:
   data_dir: '/home/soroosh/Desktop/datasets/music/lmd_processed/'
-  max_files: 2000
+  max_files: 200
   max_len: 512
   n_jobs: 12
+  unit: 4
   instruments: ['piano', 'bass', 'drums', 'guitar', 'ensemble']
 
 
