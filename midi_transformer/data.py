@@ -100,6 +100,6 @@ class LMDataset(Dataset):
         res = {
             'X': torch.tensor([np.pad(x, ((0, M - x.shape[0]), (0,0))) for x in X]),
             'X_len': x_len,
-            'labels': torch.tensor([np.pad(x, ((0, M - y.shape[0]), (0,0))) for y in Y])
+            'labels': torch.tensor([np.pad(y, ((0, M - y.shape[0]), (0,0))) for y in Y])
         }
         return res
