@@ -11,6 +11,13 @@ You can see the original implementation [here](https://github.com/YatingMusic/co
 - clean, modular code
 - config-based experiment
 
+## Install
+```
+git clone https://github.com/s-omranpour/MIDI-Transformer
+cd MIDI-Transformer
+pip install .
+```
+
 
 ## Getting started
-Please see main.ipynb
+Visit examples directory.
