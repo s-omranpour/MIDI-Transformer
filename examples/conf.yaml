@@ -1,7 +1,7 @@
 data:
   data_dir: '/home/soroosh/Desktop/datasets/music/lmd_processed/'
-  max_files: 200
-  max_len: 512
+  max_files: 2000
+  max_len: 1024
   n_jobs: 12
   unit: 4
   instruments: ['piano', 'bass', 'drums', 'guitar', 'ensemble']
@@ -14,10 +14,10 @@ model:
   dropout: &dropout 0.1
   d_model: &d_model 512
   d_inner: &d_inner 1024
-  n_layers: &n_layers 8
+  n_layers: &n_layers 6
   n_heads: &n_heads 8
   activation: &activation gelu
-  final_norm: &final_norm False
+  final_norm: &final_norm True
   
   attributes: &attributes ['ttype', 'position', 'tempo', 'chord', 'instrument', 'pitch', 'duration', 'velocity']
   n_tokens: &n_tokens
