@@ -52,7 +52,7 @@ model:
     d_model: *d_model
     d_inner: *d_inner
     n_heads: *n_heads
-    self_attention_type: linear
+    self_attention_type: causal-linear
     is_decoder: False
     dropout: *dropout
     activation: *activation
